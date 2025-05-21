@@ -4,18 +4,19 @@ import cors from "cors";
 import 'dotenv/config';
 
 import connectDB from "./config/mongodb.js";
-import authRouter from "./routes/authRoutes.js";
+import authRouter from "./routes/authRoutes.js";    
 
 const app = express();
 const port = process.env.port || 3030;
+
+//middleware
+app.use(express.json()); //deepseek
+app.use(cookieParser()); //deepseek
+app.use(cors({ credentials: true })); //deepseek
+
 connectDB();
 
-
-app.use(express.json());
-app.use(cookieParser());
-app.use(cors({credentials: true}));
-
-//API endpoints
+//API endpoints 
 app.get('/',(req,res) => res.send('API working !!'));
 app.use('/api/auth' ,authRouter)
 
